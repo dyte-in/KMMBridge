@@ -49,18 +49,26 @@ internal class AwsS3PublicArtifactManager(
 
     override fun deployArtifact(task: Task, zipFilePath: File, version: String): String {
         val fileName = obscureFileName(frameworkName, version)
-        uploadArtifact(zipFilePath, fileName)
-        return deployUrl(fileName)
-    }
+        uploadArtifact(artifactPath, zipFilePath, fileName)
+        return deployUrl(artifactPath, fileName)
+     }
+ 
+     private fun getArtifactPath(artifactPath: String?, zipFileName: String): String {
+         return if (artifactPath.isNullOrEmpty()) {
+             zipFileName
+         } else {
+             "$artifactPath/$zipFileName"
+         }
+     }
 
     /**
      * Compute the fully qualified URL for the artifact we just uploaded
      *
      * @see uploadArtifact
      */
-    private fun deployUrl(zipFileName: String): String {
+    private fun deployUrl(artifactPath: String?, zipFileName: String): String {
         val baseUrl = altBaseUrl ?: "https://${s3Bucket}.s3.${s3Region}.amazonaws.com"
-        return "${baseUrl}/$zipFileName"
+        return "${baseUrl}/${getArtifactPath(artifactPath, zipFileName)}"
     }
 
     /**
@@ -69,8 +77,9 @@ internal class AwsS3PublicArtifactManager(
      * uploaded.
      */
     @Suppress("NAME_SHADOWING")
-    private fun uploadArtifact(zipFilePath: File, fileName: String) {
-        val s3Client = S3Client.builder()
+    private fun uploadArtifact(artifactPath: String?, zipFilePath: File, fileName: String) {
+         val fileKey = getArtifactPath(artifactPath, fileName)
+         val s3Client = S3Client.builder()
             .serviceConfiguration(S3Configuration.builder().pathStyleAccessEnabled(true).build())
             .region(Region.of(s3Region))
             .credentialsProvider {
@@ -85,7 +94,7 @@ internal class AwsS3PublicArtifactManager(
 
             val headObjectRequest = HeadObjectRequest.builder()
                 .bucket(s3Bucket)
-                .key(fileName)
+                .key(fileKey)
                 .build()
 
             val exists = try {
@@ -97,7 +106,7 @@ internal class AwsS3PublicArtifactManager(
             if (!exists) {
                 val builder = PutObjectRequest.builder()
                     .bucket(s3Bucket)
-                    .key(fileName)
+                    .key(fileKey)
 
                 if (makeArtifactsPublic)
                     builder.acl("public-read")
