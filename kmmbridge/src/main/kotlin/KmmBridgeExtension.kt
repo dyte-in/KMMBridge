@@ -65,6 +65,7 @@ interface KmmBridgeExtension {
         secretAccessKey: String,
         makeArtifactsPublic: Boolean = true,
         altBaseUrl: String? = null,
+        artifactPath: String? = null,
     ) {
         artifactManager.setAndFinalize(
             AwsS3PublicArtifactManager(
@@ -73,7 +74,8 @@ interface KmmBridgeExtension {
                 accessKeyId,
                 secretAccessKey,
                 makeArtifactsPublic,
-                altBaseUrl
+                altBaseUrl,
+                artifactPath,
             )
         )
     }
