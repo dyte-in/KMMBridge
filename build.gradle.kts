@@ -10,18 +10,3 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-
-buildscript {
-    val KOTLIN_VERSION: String by project
-    repositories {
-        mavenLocal()
-        mavenCentral()
-        google()
-    }
-    dependencies {
-        classpath("com.vanniktech:gradle-maven-publish-plugin:0.22.0")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$KOTLIN_VERSION")
-        classpath("org.jetbrains.kotlin:kotlin-allopen:$KOTLIN_VERSION")
-    }
-}
-
