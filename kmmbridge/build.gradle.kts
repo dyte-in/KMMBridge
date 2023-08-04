@@ -10,6 +10,9 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
+import com.vanniktech.maven.publish.GradlePlugin
+import com.vanniktech.maven.publish.JavadocJar
+import com.vanniktech.maven.publish.SonatypeHost
 
 plugins {
     `kotlin-dsl`
@@ -29,7 +32,7 @@ repositories {
 gradlePlugin {
     plugins {
         register("faktory-kmmbridge-plugin") {
-            id = "co.touchlab.faktory.kmmbridge"
+            id = "io.dyte.kotlin.kmmbridge"
             implementationClass = "co.touchlab.faktory.KMMBridgePlugin"
             displayName = "KMMBridge for Teams"
         }
@@ -60,7 +63,8 @@ version = VERSION_NAME
 
 @Suppress("UnstableApiUsage")
 mavenPublishing {
-    publishToMavenCentral()
+    configure(GradlePlugin(JavadocJar.Empty(), sourcesJar = true))
+    publishToMavenCentral(host = SonatypeHost.S01, automaticRelease = true)
     val releaseSigningEnabled =
         project.properties["RELEASE_SIGNING_ENABLED"]?.toString()?.equals("false", ignoreCase = true) != true
     if (releaseSigningEnabled) signAllPublications()
