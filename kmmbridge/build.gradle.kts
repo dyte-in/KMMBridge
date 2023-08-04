@@ -19,6 +19,8 @@ plugins {
     id("com.vanniktech.maven.publish.base") version "0.22.0"
 }
 
+kotlin.jvmToolchain(11)
+
 repositories {
     gradlePluginPortal()
     mavenCentral()
@@ -48,11 +50,6 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.10.0")
     implementation("com.google.code.gson:gson:2.10.1")
     testImplementation(kotlin("test"))
-}
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
 }
 
 val GROUP: String by project
