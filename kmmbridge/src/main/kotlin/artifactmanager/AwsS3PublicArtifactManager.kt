@@ -15,6 +15,7 @@ package co.touchlab.faktory.artifactmanager
 
 import co.touchlab.faktory.internal.obscureFileName
 import org.gradle.api.Project
+import org.gradle.api.provider.Provider
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials
 import software.amazon.awssdk.core.sync.RequestBody
 import software.amazon.awssdk.regions.Region
@@ -27,8 +28,8 @@ import java.io.File
 class AwsS3PublicArtifactManager(
     private val s3Region: String,
     private val s3Bucket: String,
-    private val s3AccessKeyId: String,
-    private val s3SecretAccessKey: String,
+    private val s3AccessKeyId: Provider<String>,
+    private val s3SecretAccessKey: Provider<String>,
     private val makeArtifactsPublic: Boolean,
     private val altBaseUrl: String?,
     private val artifactPath: String?,
@@ -71,8 +72,8 @@ class AwsS3PublicArtifactManager(
             .region(Region.of(s3Region))
             .credentialsProvider {
                 AwsBasicCredentials.create(
-                    s3AccessKeyId,
-                    s3SecretAccessKey
+                    s3AccessKeyId.get(),
+                    s3SecretAccessKey.get()
                 )
             }
             .build()
