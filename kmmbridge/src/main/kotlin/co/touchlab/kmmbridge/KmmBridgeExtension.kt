@@ -27,6 +27,7 @@ import co.touchlab.kmmbridge.internal.kotlin
 import org.gradle.api.Project
 import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.Property
+import org.gradle.api.provider.Provider
 import org.jetbrains.kotlin.gradle.plugin.mpp.NativeBuildType
 
 interface KmmBridgeExtension {
@@ -46,8 +47,8 @@ interface KmmBridgeExtension {
     fun Project.s3PublicArtifacts(
         region: String,
         bucket: String,
-        accessKeyId: String,
-        secretAccessKey: String,
+        accessKeyId: Provider<String>,
+        secretAccessKey: Provider<String>,
         makeArtifactsPublic: Boolean = true,
         altBaseUrl: String? = null,
         artifactPath: String? = null,
