@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Touchlab.
+ * Copyright (c) 2024 Touchlab.
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
  *
@@ -10,3 +10,31 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
+plugins {
+    alias(libs.plugins.kotlin) apply false
+    id("org.jetbrains.kotlin.plugin.allopen") version "1.9.0" apply false
+    alias(libs.plugins.maven.publish) apply false
+}
+
+subprojects {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+    }
+
+    extensions.findByType<org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension>()?.apply {
+        jvmToolchain(17)
+    }
+
+    val GROUP: String by project
+    val VERSION_NAME: String by project
+
+    group = GROUP
+    version = VERSION_NAME
+
+    afterEvaluate {
+        tasks.getByName<Test>("test") {
+            useJUnitPlatform()
+        }
+    }
+}

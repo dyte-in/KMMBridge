@@ -12,3 +12,5 @@ build
 *.xcbkptlist
 !/.idea/codeStyles/*
 !/.idea/inspectionProfiles/*
+.kotlin
+TOUCHLAB_TEST_ARTIFACT_CODE

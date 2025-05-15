@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Touchlab.
+ * Copyright (c) 2024 Touchlab.
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
  *
@@ -13,14 +13,26 @@
 
 pluginManagement {
     repositories {
+        google()
         mavenCentral()
         gradlePluginPortal()
     }
 }
-
 plugins {
-    id("org.gradle.toolchains.foojay-resolver-convention") version "0.6.0"
+    id("org.gradle.toolchains.foojay-resolver-convention") version "0.8.0"
+}
+
+dependencyResolutionManagement {
+    @Suppress("UnstableApiUsage")
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        google()
+    }
 }
 
 rootProject.name = "KMMBridge"
 include(":kmmbridge")
+include(":kmmbridge-github")
+include(":kmmbridge-gitlab")
+include(":kmmbridge-test")
