@@ -19,7 +19,6 @@ plugins {
     id("org.jetbrains.kotlin.plugin.allopen")
     id("java-gradle-plugin")
     alias(libs.plugins.maven.publish)
-    id("com.gradle.plugin-publish") version "1.0.0"
 }
 
 @Suppress("UnstableApiUsage")
@@ -30,7 +29,7 @@ gradlePlugin {
         "KMMBridge is a set of Gradle tooling that facilitates publishing and consuming pre-built KMM (Kotlin Multiplatform Mobile) Xcode Framework binaries."
     plugins {
         register("kmmbridge-plugin") {
-            id = "co.touchlab.kmmbridge"
+            id = "io.dyte.kotlin.kmmbridge"
             implementationClass = "co.touchlab.kmmbridge.KMMBridgePlugin"
             displayName = "KMMBridge for Teams"
             tags = listOf(

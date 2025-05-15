@@ -19,7 +19,6 @@ plugins {
     id("org.jetbrains.kotlin.plugin.allopen")
     id("java-gradle-plugin")
     alias(libs.plugins.maven.publish)
-    id("com.gradle.plugin-publish") version "1.0.0"
 }
 
 @Suppress("UnstableApiUsage")

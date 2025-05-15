@@ -1,3 +1,5 @@
+> Dyte fork of KMMBridge adding support for subdirectories in the S3 artifact manager.
+
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/touchlab/KMMBridge)
 ![GitHub](https://img.shields.io/github/license/touchlab/KMMBridge)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](CODE_OF_CONDUCT.md)
