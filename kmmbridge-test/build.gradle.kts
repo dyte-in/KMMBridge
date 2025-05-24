@@ -28,7 +28,7 @@ gradlePlugin {
         "KMMBridge is a set of Gradle tooling that facilitates publishing and consuming pre-built KMM (Kotlin Multiplatform Mobile) Xcode Framework binaries."
     plugins {
         register("kmmbridge-test-plugin") {
-            id = "co.touchlab.kmmbridge.test"
+            id = "io.dyte.kotlin.kmmbridge.test"
             implementationClass = "co.touchlab.kmmbridge.test.KMMBridgeTestPlugin"
             displayName = "KMMBridge/Test"
             tags = listOf(

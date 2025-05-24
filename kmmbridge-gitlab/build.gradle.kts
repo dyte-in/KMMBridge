@@ -29,7 +29,7 @@ gradlePlugin {
         "KMMBridge is a set of Gradle tooling that facilitates publishing and consuming pre-built KMM (Kotlin Multiplatform Mobile) Xcode Framework binaries."
     plugins {
         register("kmmbridge-gitlab-plugin") {
-            id = "co.touchlab.kmmbridge.gitlab"
+            id = "io.dyte.kotlin.kmmbridge.gitlab"
             implementationClass = "co.touchlab.kmmbridge.gitlab.KMMBridgeGitLabPlugin"
             displayName = "KMMBridge/GitLab"
             tags = listOf(
