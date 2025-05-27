@@ -15,6 +15,7 @@ package co.touchlab.kmmbridge
 
 import co.touchlab.kmmbridge.artifactmanager.ArtifactManager
 import co.touchlab.kmmbridge.artifactmanager.AwsS3PublicArtifactManager
+import co.touchlab.kmmbridge.artifactmanager.CloudflareR2PublicArtifactManager
 import co.touchlab.kmmbridge.artifactmanager.MavenPublishArtifactManager
 import co.touchlab.kmmbridge.dependencymanager.CocoapodsDependencyManager
 import co.touchlab.kmmbridge.dependencymanager.DependencyManager
@@ -62,6 +63,29 @@ interface KmmBridgeExtension {
                 makeArtifactsPublic,
                 altBaseUrl,
                 artifactPath,
+            )
+        )
+    }
+
+    @Suppress("unused")
+    fun Project.r2PublicArtifacts(
+        accountId: String,
+        bucketName: String,
+        accessKeyId: Provider<String>,
+        secretKey: Provider<String>,
+        customDomain: String = "",
+        artifactPath: String? = null,
+        makeArtifactsPublic: Boolean = true,
+        ) {
+        return artifactManager.setAndFinalize(
+            CloudflareR2PublicArtifactManager(
+                accountId = accountId,
+                bucketName = bucketName,
+                accessKeyId = accessKeyId,
+                secretKey = secretKey,
+                makeArtifactsPublic = makeArtifactsPublic,
+                artifactPath = artifactPath,
+                customDomain = customDomain,
             )
         )
     }
